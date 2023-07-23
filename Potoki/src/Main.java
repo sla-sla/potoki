@@ -3,77 +3,63 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-        StringBuilder sb = new StringBuilder();
+    private static StringBuilder sb = new StringBuilder();
+    public static void main(String[] args) throws IOException {
 
-        File file1 = new File("C://Games/src");
-        file1.mkdir();
-        sb.append("C://Games/src\n");
+        createFolder("C://Games/src");
+
+        createFolder("C://Games/res");
+
+        createFolder("C://Games/savegames");
+
+        createFolder("C://Games/temp");
+
+        createFolder("C://Games/src/main");
+
+        createFolder("C://Games/src/test");
+
+        createFile("C://Games/src/main/Main.java");
+
+        createFile("C://Games/src/main/Utils.java");
+
+        createFolder("C://Games/res/drawables");
+
+        createFolder("C://Games/res/vectors");
+
+        createFolder("C://Games/res/icons");
+
+        createFile("C://Games/temp/temp.txt");
+
+        fileWriter("C://Games/temp/temp.txt");
 
 
-        File file2 = new File("C://Games/res");
-        file2.mkdir();
-        sb.append("C://Games/res\n");
-
-        File file3 = new File("C://Games/savegames");
-        file3.mkdir();
-        sb.append("C://Games/savegames\n");
-
-        File file4 = new File("C://Games/temp");
-        file4.mkdir();
-        sb.append("C://Games/temp\n");
-
-        File file5 = new File("C://Games/src/main");
-        file5.mkdir();
-        sb.append("C://Games/src/main\n");
-
-        File file6 = new File("C://Games/src/test");
-        file6.mkdir();
-        sb.append("C://Games/src/test\n");
-
-        try {
-            File file7 = new File("C://Games/src/main/Main.java");
-            file7.createNewFile();
-            sb.append("C://Games/main/Main.java\n");
-        } catch (IOException e) {
-            e.printStackTrace();
+    }
+    public static void createFolder(String way){
+        File file = new File(way);
+        if (file.mkdirs()) {
+            sb.append(way + "\n");
         }
-
-        try {
-            File file8 = new File("C://Games/src/main/Utils.java");
-            file8.createNewFile();
-            sb.append("C://Games/main/Utils.java\n");
-        } catch (IOException e) {
-            e.printStackTrace();
+        else {
+            sb.append("Ошибка создания папки " + way + "\n");
         }
-
-        File file9 = new File("C://Games/res/drawables");
-        file9.mkdir();
-        sb.append("C://Games/res/drawables\n");
-
-        File file10 = new File("C://Games/res/vectors");
-        file10.mkdir();
-        sb.append("C://Games/res/vectors\n");
-
-        File file11 = new File("C://Games/res/icons");
-        file11.mkdir();
-        sb.append("C://Games/res/icons\n");
-
-        try {
-            File file8 = new File("C://Games/temp/temp.txt");
-            file8.createNewFile();
-            sb.append("C://Games/temp/temp.txt\n");
-        } catch (IOException e) {
-            e.printStackTrace();
+    }
+    public static void createFile(String way) throws IOException {
+        File file = new File(way);
+        if (file.createNewFile()) {
+            sb.append(way + "\n");
         }
-
+        else {
+            sb.append("Ошибка создания файла " +  way + "\n");
+        }
+    }
+    public static void fileWriter(String way){
         String text = sb.toString();
 
         try {
-            FileWriter writer = new FileWriter("C://Games/temp/temp.txt", true);
+            FileWriter writer = new FileWriter(way, true);
             writer.write(text);
             writer.close();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
 
